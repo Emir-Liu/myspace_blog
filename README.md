@@ -17,7 +17,15 @@ conda activate /filespace/env
 ```
 git ini #创建了.git文件
 git status #查看当前项目的文件状态
+git add --all # 对所有文件放入暂存区域
+git commit -m "xxx" #将暂存区的内容推送到仓库中
 ```
+由于密码认证被取消了需要通过ssh连接获取密钥进行长久的认证
+```
+ssh-keygen -t rsa -C "xemailx"
+ssh -T git@github.com
+```
+
 ### 1.3 取消对一些文件的跟踪
 .gitignore
 ```
