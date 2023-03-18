@@ -1,0 +1,156 @@
+/* Markdown to HTML styles */
+
+/* Body styles */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Headings styles */
+h1 {
+  font-size: 2em;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: #333;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: #333;
+}
+
+h3 {
+  font-size: 1em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: #333;
+}
+
+/* Text styles */
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+strong, b {
+  font-weight: bold;
+}
+
+em, i {
+  font-style: italic;
+}
+
+/* Links styles */
+a {
+  color: #0074D9;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Lists styles */
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+li {
+  margin-left: 2em;
+  margin-bottom: 0.5em;
+}
+
+/* Code styles */
+code {
+  font-family: "Courier New", monospace;
+  background-color: #F8F8F8;
+  border: 1px solid #EAEAEA;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+pre {
+  background-color: #F8F8F8;
+  border: 1px solid #EAEAEA;
+  padding: 1em;
+  border-radius: 3px;
+  overflow-x: auto;
+}
+
+pre code {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Blockquote styles */
+blockquote {
+  margin: 0;
+  margin-bottom: 1em;
+  border-left: 4px solid #DDD;
+  padding-left: 1em;
+  font-style: italic;
+  color: #777;
+}
+
+/* Horizontal rule styles */
+hr {
+  border: none;
+  border-top: 1px solid #EAEAEA;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+/* Image styles */
+img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* Table styles */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+th, td {
+  border: 1px solid #EAEAEA;
+  padding: 0.5em 1em;
+}
+
+th {
+  background-color: #EAEAEA;
+}
+
+/* Code block styles */
+.highlight {
+  background-color: #F8F8F8;
+  border: 1px solid #EAEAEA;
+  padding: 1em;
+  border-radius: 3px;
+  overflow-x: auto;
+}
+
+.highlight pre {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Syntax highlighting */
+code[class*="language-"] {
+  color: #333;
+}
+
+.token.comment,

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% autoescape None %}
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Article</title>
+    <link rel="stylesheet" href="{{ static_url('./css/articlestyle.css') }}">
+  </head>
+
+  <body>
+    <div class="topnav">
+      <a href="#">Home</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+      <a href="#">About</a>
+    </div>
+
+    <div class="sidenav">
+      <a href="#">Category 1</a>
+      <a href="#">Category 2</a>
+      <a href="#">Category 3</a>
+    </div>
+
+
+
+    <div class="article">
+      <head>
+        <link rel="stylesheet" href="{{ static_url('./css/markdown.css') }}">
+      </head>
+      <h1>Welcome to My Blog</h1>
+      {{ article }}
+    </div>
+
+
+  </body>
+</html>
