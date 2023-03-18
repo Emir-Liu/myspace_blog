@@ -1,15 +1,17 @@
+import unittest
 # 第三方库
 import requests
 
 # 测试对象
-from handler.util import Logging,Markdown
+from app.handler.util import Logging,Markdown,ReadConfig
+
+config = ReadConfig()
 
 # 测试类
 class Test():
     # 对页面连接进行测试
     def test_connection(self):
-        url = 'localhost'
-        ans = requests.get('http://localhost:9090/hello')
+        ans = requests.get('http://localhost:'+config.get('url','port')+config.get('map','test'))
         print(ans.content)
         return 0
 
@@ -27,10 +29,21 @@ class Test():
         html = Markdown().gethtml('./blog/article/README.md')
         print(html)
 
+    # 对网页显示markdown进行测试
+    def test_article(self):
+        article_name='README.md'
+        json = {
+            'article_name':'README'
+        }
+        ans = requests.post(url='http://localhost:'+config.get('url','port')+config.get('map','article'),
+                            data=json)
+        print('ans:{}'.format(ans))
+        return ans
     def test_all(self):
         pass
 
 if __name__ == '__main__':
     # Test().test_connection()
+    Test().test_article()
     # Test().test_logging()
-    Test().test_markdown()
+    # Test().test_markdown()
