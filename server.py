@@ -1,11 +1,14 @@
+import logging
+import os
+
 # 第三方库
 import tornado.web
 import tornado.ioloop
-import os
 
 # 本地库
-from handler.util import ReadConfig
-from application import Application
+from app.handler.util import ReadConfig,Logging
+from app.application import Application
+
 
 class Service():
     def __init__(self):
@@ -14,18 +17,21 @@ class Service():
     def run(self):
         pass
 
-def service():
-    print("启动服务")
 
+def service():
+    logger.info("开始启动服务")
     app = Application()
     config = ReadConfig()
     config.BASE_DIR = os.path.dirname(__file__)
-    print("base_dir:{}".format(config.BASE_DIR))
+    logger.debug("base_dir:{}".format(config.BASE_DIR))
     port = config.get('url','port')
-    app.listen(port)
-    print("服务启动完成")
+    # 绑定端口
+    Logging().trylogger('绑定服务端口',app.listen(port))
     tornado.ioloop.IOLoop.instance().start()
+    logger.info("服务启动完成")
 
+
+logger = Logging().getlogger()
 if __name__ == '__main__':
     service()
 
