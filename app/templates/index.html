@@ -1,32 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>My Blog</title>
-    <link rel="stylesheet" href="{{ static_url('./css/style.css') }}">
-  </head>
 
-  <body>
+    <link rel="stylesheet" href="{{ static_url('./css/indexstyle.css') }}">
+</head>
+
+<body>
     <div class="topnav">
-      <a href="#">Home</a>
-      <a href="#">Blog</a>
-      <a href="#">Contact</a>
-      <a href="#">About</a>
+        <a href="#">Home</a>
+        <a href="#">Blog</a>
+        <a href="#">Contact</a>
+        <a href="#">About</a>
     </div>
 
     <div class="sidenav">
-      <a href="#">Category 1</a>
-      <a href="#">Category 2</a>
-      <a href="#">Category 3</a>
+        <a href="#">Category 1</a>
+        <a href="#">Category 2</a>
+        <a href="#">Category 3</a>
     </div>
 
+    <div class="article-list">
+        {% for article in article_list %}
+            <article>
+                <h2><a href="#">{{article['title']}}</a></h2>
+                <p class="summary">{{article['content']}}</p>
+                <p class="publish-date">{{article['create_time']}}</p>
+                <p class="label">
+                    <a href="#" class="label">aa</a>,
+                    <a href="#" class="label">bb</a>
+                </p>
+            </article>
+        {% end %}
+        <!--
+        <article>
+        <h2><a href="#">另一篇文章标题</a></h2>
+        <p class="publish-date">发布日期：2023年3月17日</p>
+        <p class="summary">这是另一篇文章的摘要。Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <a href="#" class="read-more">阅读更多</a>
+        </article>
+        -->
 
-
-    <div class="main">
-      <h1>Welcome to My Blog</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet sodales tellus, et lobortis lectus. Integer hendrerit, lorem nec fermentum ultrices, erat leo interdum odio, ut vulputate arcu dolor sit amet ipsum.</p>
+        <!-- 继续添加更多文章 -->
     </div>
 
-
-  </body>
+</body>
 </html>

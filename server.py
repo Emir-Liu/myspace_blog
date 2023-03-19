@@ -10,14 +10,6 @@ from app.handler.util import ReadConfig,Logging
 from app.application import Application
 
 
-class Service():
-    def __init__(self):
-        pass
-
-    def run(self):
-        pass
-
-
 def service():
     logger.info("开始启动服务")
     app = Application()

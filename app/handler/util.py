@@ -1,6 +1,7 @@
 import configparser
 import logging
 import os
+import time
 
 # 第三方库
 import markdown
@@ -123,41 +124,11 @@ class Logging():
         pass
 
 
-# 文件管理相关
-class Fileoperation():
-
-    def __init__(self):
-        # 对象变量
-        self.path = self.pwd()
-
-    # 将文件名转化为对应的文件绝对路径
-    # 找到对应的文件夹，并和文件名进行拼接
-    def transfile(self,file_name):
-        config = ReadConfig()
-        file_file = config.get('data','article')
-        file_path = os.path.join(file_file,file_name)
-        return file_path
-
-
-    # 显示当前路径下包含哪些文件，返回文件列表
-    def ls(self,current_path=None):
-        if current_path == None:
-            current_path = os.getcwd()
-        file_list = os.listdir(current_path)
-        return file_list
-
-    # 显示当前的绝对路径
-    def pwd(self):
-        return os.getcwd()
-
-    # 将当前路径和路径中包含的文件进行拼接,得到绝对路径文件列表
-    def pathfile(self,path,file_list):
-        return []
-
-    # 进入下一级,返回当前绝对路径
-    def cd(self,file=None):
-        self.path = os.path.join(self.path,file)
-        return
+# 提供向上的文本信息接口
+class Article():
+    config = ReadConfig()
+    article_file = config.get('data', 'article')
+    logger = Logging().getlogger()
 
     # 判断是否为路径
     def ispath(self,path):
@@ -168,20 +139,84 @@ class Fileoperation():
                 return 'dir'
         return False
 
+    # 将文档相对路径，输入标题
+    def title2path(self,article_title):
+        article_path = os.path.join(Article().article_file,article_title+'.md')
+        return article_path
 
-# markdown文本解析相关内容
-# 读取一篇文档的内容
-# 读取所有文档的内容
-class Markdown():
-    def __init__(self):
-        pass
+    # 将文档相对路径，输入标题
+    def file2path(self,file):
+        article_path = os.path.join(Article().article_file,file)
+        return article_path
 
-    # 开始解析文档内容
-    def gethtml(self,path=None):
+    # 获取文件的时间
+    def path2time(self,path):
+        # 读取系统数据，获取时间
+        create_time = os.path.getctime(path)
+        edit_time = os.path.getmtime(path)
+        # 将时间进行转换
+        create_time_str = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(create_time))
+        edit_time_str = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(edit_time))
+        return create_time,edit_time,create_time_str,edit_time_str
+
+    # 将文件转换为meta和html
+    def path2html(self,path):
+        # 使用markdown解析，获取元数据，文档内容
         # 读取 Markdown 文件内容
         with open(path, 'r',encoding='utf8') as f:
-            md_text = f.read()
+            article_f = f.read()
         # 解析 Markdown 文件
-        html = markdown.markdown(md_text)
-        # 输出 HTML 结果
-        return html
+        md = markdown.Markdown(extensions=['meta'])
+        html = md.convert(article_f)
+        meta = md.Meta
+        return meta,html
+
+    # 获取文档的信息
+    def getonearticle(self,article_title=None,article_path=None):
+        article_info = {
+            'title':'',
+            'create_time':'',
+            'edit_time':'',
+            'meta':{
+            },
+            'content':'',
+        }
+        if article_path == None:
+            # 如果没有路径，将title解析为文件的相对位置
+            article_path = self.title2path(article_title)
+        # 需要增加path检测，待定
+        if self.ispath(article_path) != 'file':
+            Article().logger.warning('没有找到对应的文件:{}'.format(article_path))
+            return article_info
+        if article_title == None:
+            # 如果没有标题，通过路径解析标题
+            article_title = os.path.basename(article_path)[0:-3]
+        # 获取文件信息中的标题
+        article_info['title'] = article_title
+        # 对文件进行解析
+        # 获取时间
+        create_time,edit_time,create_time_str,edit_time_str = self.path2time(article_path)
+        article_info['create_time'] = create_time_str
+        article_info['edit_time'] = edit_time_str
+        # 使用markdown解析，获取元数据，文档内容
+        # 读取 Markdown 文件内容
+        article_meta,article_html = self.path2html(article_path)
+        article_info['content'] = article_html
+        article_info['meta'] = article_meta
+        return article_info
+
+    # 显示所有文档列表
+    def getpathlist(self):
+        file_list = os.listdir(Article().article_file)
+        return file_list
+
+    # 获取所有文档信息
+    def getallarticle(self):
+        article_list = []
+        # 遍历所有的文件
+        pathlist = self.getpathlist()
+        Article().logger.debug('pathlist:{}'.format(pathlist))
+        for path in pathlist:
+            article_list.append(self.getonearticle(article_path=self.file2path(path)))
+        return article_list
+

@@ -4,7 +4,7 @@ import os
 import tornado.web
 
 # 本地模块
-from app.views import hello,index,article
+from app.views import hello,index,article,blog
 from app.handler.util import ReadConfig
 
 # 应用类，配置路由
@@ -15,6 +15,7 @@ class Application(tornado.web.Application):
             (config.get('map','test'), hello.HelloHandler), # 测试连接
             (config.get('map', 'index'), index.IndexHandler),   # 主页
             (config.get('map', 'article'), article.ArticleHandler), # 文本页
+            (config.get('map', 'blog'), blog.BlogHandler),  # blog页
         ]
 
         settings = {
