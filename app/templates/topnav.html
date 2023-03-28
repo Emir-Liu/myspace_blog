@@ -1,0 +1,9 @@
+{% block topnav %}
+    {% from app.handler.util import ReadConfig %}
+    {% set config = ReadConfig() %}
+    {% set home = config.get('map','index') %}
+    {% set blog = config.get('map','blog') %}
+    <a href="{{ home }}">Home</a>
+    <a href="{{ blog }}">Blog</a>
+    <a href="#">About</a>
+{% end %}
