@@ -1,4 +1,5 @@
-/*下面是顶部导航栏的内容*/
+
+/*下面是网站的全局配置*/
 /* 定义顶部导航栏的样式 */
 .topnav {
   overflow: hidden;
@@ -34,7 +35,7 @@
   background-color: #111;
   overflow-x: hidden;
   overflow_y: scroll;
-  padding-top: 50px;
+  padding-top: 60px;
 }
 
 /* 定义侧边导航栏链接的样式 */
@@ -57,12 +58,4 @@
   margin-left: 25%; /* 将左侧的侧边导航栏留出空间 */
   font-size: 20px;
   padding: 0px 10px;
-}
-
-/* 定义主体内容中标题的样式 */
-.main h1 {
-  font-size: 40px;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }

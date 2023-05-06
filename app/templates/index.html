@@ -1,58 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>My Blog</title>
-    <link rel="stylesheet" href="{{ static_url('./css/global.css') }}">
+
+{% extends base.html %}
+
+{% block title %}
+    <title>Home</title>
+{% end %}
+
+{% block css %}
     <link rel="stylesheet" href="{{ static_url('./css/indexstyle.css') }}">
-</head>
+{% end %}
 
-<body>
-    {% from app.handler.util import ReadConfig %}
-    {% set config = ReadConfig() %}
-    {% set article_link = config.get('map','article') %}
+{% block sidenav %}
+    <a href="#">Category 1</a>
+    <a href="#">Category 2</a>
+    <a href="#">Category 3</a>
+{% end %}
 
-    <!--顶部导航栏-->
-    <div class="topnav">
-      {% block topnav %}
-      {% include "topnav.html" %}
-      {% end %}
-    </div>
-
-    <!--左侧导航栏-->
-    <div class="sidenav">
-        <a href="#">Category 1</a>
-        <a href="#">Category 2</a>
-        <a href="#">Category 3</a>
-    </div>
-
-    <div class="main">
-        <!--文档列表-->
-        <div class="article-list">
-            {% for article in article_list %}
-                <article>
-                    <!--文档块-->
-                    {% set the_article_link = article_link + '?title=' + article['title']  %}
-                    <h2><a href="{{ the_article_link }}">{{article['title']}}</a></h2>
-                    <p class="summary">{{article['content']}}</p>
-                    <p class="publish-date">{{article['create_time']}}</p>
-                    <p class="label">
-                      {%if 'tags' in article['meta']%}
-                        {% for idx_tags,tags in enumerate(article['meta']['tags']) %}
-                          {% if idx_tags == 0 %}
-                            <a href="#" class="label">{{ tags }} </a>
-                          {% else %}
-                            ,<a href="#" class="label">{{ tags }}</a>
-                          {% end %}
-                        {% end %}
+{% block main %}
+    <!--文档列表-->
+    <div class="article-list">
+        {% for article in article_list %}
+            <article>
+                <!--文档块-->
+                {% set the_article_link = article_link + '?title=' + article['title']  %}
+                <h2><a href="{{ the_article_link }}">{{article['title']}}</a></h2>
+                <p class="summary">{{article['content']}}</p>
+                <p class="publish-date">{{article['create_time']}}</p>
+                <p class="label">
+                  {%if 'tags' in article['meta']%}
+                    {% for idx_tags,tags in enumerate(article['meta']['tags']) %}
+                      {% if idx_tags == 0 %}
+                        <a href="#" class="label">{{ tags }} </a>
+                      {% else %}
+                        ,<a href="#" class="label">{{ tags }}</a>
                       {% end %}
-                    </p>
-                </article>
-            {% end %}
-
-        </div>
+                    {% end %}
+                  {% end %}
+                </p>
+            </article>
+        {% end %}
     </div>
-
-
-</body>
-</html>
+{% end %}

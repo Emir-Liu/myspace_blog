@@ -1,5 +1,5 @@
 
-/*下面是主体的内容*/ 
+/*下面是article的配置*/
 /* 定义主体内容的样式 */
 .article {
   font-size: 15px;
@@ -13,6 +13,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
 .article articletitle {
     text-align: center;
     margin-top: 20px;
@@ -27,7 +28,7 @@
   display: inline-block;
   font-style: italic;
   font-size: 0.8rem;
-  margin: 0.5rem;
+  margin: 0;
 }
 
 .article p.label {
@@ -35,8 +36,8 @@
   display: inline-block;
   font-style: italic;
   font-size: 0.8rem;
-  text-align: right;
-  margin: 0.5rem;
+  text-align: middle;
+  margin: 0;
 }
 
 .article a.label {

@@ -220,3 +220,31 @@ class Article():
             article_list.append(self.getonearticle(article_path=self.file2path(path)))
         return article_list
 
+    # 获取所有的tags和category
+    def getalltags(self,articlelist=None):
+        if articlelist == None:
+            articlelist = self.getallarticle()
+        tag_set = set()
+        for article in articlelist:
+            if 'tags' in article['meta']:
+                if article['meta']['tags'] != None and article['meta']['tags'] != '':
+                    # for tag in article['meta']['tags']:
+                    #     tag_set.add(tag)
+                    tag_set.update(article['meta']['tags'])
+        return tag_set
+
+    def getallcategory(self,articlelist=None):
+        if articlelist == None:
+            articlelist = self.getallarticle()
+        category_set = set()
+        for article in articlelist:
+            if 'category' in article['meta']:
+                if article['meta']['category'] != None and article['meta']['category'] != '':
+                    # for cat in article['meta']['category']:
+                    #     category_set.add(cat)
+                    category_set.update(article['meta']['category'])
+        return category_set
+
+    # 过滤文件
+    def articlefilter(self,articlelist=None,):
+        pass

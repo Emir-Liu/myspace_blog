@@ -1,24 +1,37 @@
+
+/*下面是blog页面的配置*/
 /*搜索栏中的文本输入*/
-input[type="text"],
+input[type="text"] {
+    width:80%;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
 /*搜索栏中的单选*/
 select {
-  margin-right: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
-  font-size: 16px;
+    width: 80%;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
 }
+
 /*搜索栏中的按钮*/
 button[type="submit"] {
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .header button[type="submit"]:hover {
-  background-color: #3E8E41;
+    background-color: #3E8E41;
 }

@@ -1,71 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>My Blog</title>
-    <link rel="stylesheet" href="{{ static_url('./css/global.css') }}">
+
+{% extends base.html %}
+
+{% block title %}
+    <title>Blog</title>
+{% end %}
+
+{% block css %}
     <link rel="stylesheet" href="{{ static_url('./css/blog.css') }}">
-</head>
+{% end %}
 
-<body>
-    {% from app.handler.util import ReadConfig %}
-    {% set config = ReadConfig() %}
-    {% set article_link = config.get('map','article') %}
+{% block sidenav %}
+    <div class="search">
+        <form method="post" action="/search">
+        <input type="text" name="search" placeholder="搜索关键词...">
+        <br>
+        {% from app.handler.util import Article %}
+        {% set tags = Article().getalltags() %}
+        {% set category = Article().getallcategory() %}
+        <select name="tag">
+            <option tags="">选择标签</option>
+            {% for tag in tags %}
+                <option value="{{ tag }}">{{ tag }}</option>
+            {% end %}
+        </select>
+        <br>
+        {% if len(category) != 0 %}
+            <select name="category">
+                <option category="">选择栏目</option>
+                {% for cat in category %}
+                    <option value="{{ cat }}">{{ cat }}</option>
+                {% end %}
+            </select>
+        {% end %}
+        <button type="submit">搜索</button>
+        </form>
+    </div>
+{% end %}
 
-    <!--顶部导航栏-->
-    <div class="topnav">
-        {% block topnav %}
-        {% include "topnav.html" %}
+{% block main %}
+    <!--文档列表-->
+    <div class="article-list">
+        {% for article in article_list %}
+            <article>
+                <!--文档块-->
+                {% set the_article_link = article_link + '?title=' + article['title']  %}
+                <h2><a href="{{ the_article_link }}">{{article['title']}}</a></h2>
+                <p class="summary">{{article['content']}}</p>
+                <p class="publish-date">{{article['create_time']}}</p>
+                <p class="label">
+                  {%if 'tags' in article['meta']%}
+                    {% for idx_tags,tags in enumerate(article['meta']['tags']) %}
+                      {% if idx_tags == 0 %}
+                        <a href="#" class="label">{{ tags }} </a>
+                      {% else %}
+                        ,<a href="#" class="label">{{ tags }}</a>
+                      {% end %}
+                    {% end %}
+                  {% end %}
+                </p>
+            </article>
         {% end %}
     </div>
-
-    <!--左侧导航栏-->
-    <div class="sidenav">
-        <div class="search">
-			<input type="text" name="search" placeholder="搜索关键词...">
-			<select name="tag">
-				<option tags="">选择标签</option>
-				<option value="标签1">标签1</option>
-				<option value="标签2">标签2</option>
-				<option value="标签3">标签3</option>
-			</select>
-			<select name="category">
-				<option category="">选择栏目</option>
-				<option value="栏目1">栏目1</option>
-				<option value="栏目2">栏目2</option>
-				<option value="栏目3">栏目3</option>
-			</select>
-			<button type="submit">搜索</button>
-        </div>
-    </div>
-
-    <div class="main">
-        <!--文档列表-->
-        <div class="article-list">
-            {% for article in article_list %}
-                <article>
-                    <!--文档块-->
-                    {% set the_article_link = article_link + '?title=' + article['title']  %}
-                    <h2><a href="{{ the_article_link }}">{{article['title']}}</a></h2>
-                    <p class="summary">{{article['content']}}</p>
-                    <p class="publish-date">{{article['create_time']}}</p>
-                    <p class="label">
-                      {%if 'tags' in article['meta']%}
-                        {% for idx_tags,tags in enumerate(article['meta']['tags']) %}
-                          {% if idx_tags == 0 %}
-                            <a href="#" class="label">{{ tags }} </a>
-                          {% else %}
-                            ,<a href="#" class="label">{{ tags }}</a>
-                          {% end %}
-                        {% end %}
-                      {% end %}
-                    </p>
-                </article>
-            {% end %}
-
-        </div>
-    </div>
-
-
-</body>
-</html>
+{% end %}

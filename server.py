@@ -23,6 +23,7 @@ def service():
     logger.info("服务启动完成")
 
 
+
 logger = Logging().getlogger()
 if __name__ == '__main__':
     service()
